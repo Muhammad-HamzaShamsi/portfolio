@@ -121,6 +121,8 @@ h2{font-family:var(--display);font-stretch:112%;font-weight:720;font-size:clamp(
 .proj .arrow{font-family:var(--mono);color:var(--muted);font-size:13px}
 .proj h3{font-family:var(--display);font-stretch:108%;font-weight:680;font-size:1.25rem;margin:0;line-height:1.2;overflow-wrap:anywhere}
 .proj p{margin:0;color:var(--muted);font-size:15px}
+.proj .details{margin:0;padding-left:18px;color:var(--muted);font-size:14px;display:grid;gap:4px}
+.proj .details li::marker{color:var(--accent)}
 .flow{font-family:var(--mono);font-size:12px;color:var(--ink);background:var(--bg);border-radius:6px;padding:8px 10px;overflow-x:auto;white-space:nowrap}
 .flow b{color:var(--accent);font-weight:400}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:4px}
@@ -262,6 +264,7 @@ footer.foot .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:
         <div class="top"><span class="area">MLOps</span><span class="arrow">repo ↗</span></div>
         <h3>mlops-end-to-end-pipeline</h3>
         <p>A complete model lifecycle with CI/CD that publishes images to GitHub Container Registry.</p>
+        <ul class="details"><li>Trains 4 candidate models and logs params, metrics and artifacts to MLflow.</li><li>Auto-selects the best model by F1; the build fails if it scores below the quality gate.</li><li>FastAPI service with validation, /health, /model and batch /predict endpoints.</li><li>Multi-stage Docker image (non-root) and GitHub Actions running ruff, pytest and image push.</li></ul>
         <div class="flow">train <b>→</b> MLflow <b>→</b> quality gate <b>→</b> FastAPI <b>→</b> Prometheus</div>
         <div class="chips"><span class="chip">scikit-learn</span><span class="chip">MLflow</span><span class="chip">FastAPI</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span></div>
       </a>
@@ -269,6 +272,7 @@ footer.foot .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:
         <div class="top"><span class="area">Infrastructure as code</span><span class="arrow">repo ↗</span></div>
         <h3>k8s-terraform-ml-infra</h3>
         <p>Production ML infrastructure on AWS, defined in Terraform, with autoscaling, disruption budgets, ingress and alerting.</p>
+        <ul class="details"><li>Terraform provisions a 3-AZ VPC, EKS with managed node groups, ECR and encrypted S3.</li><li>Kustomize deployment with zero-downtime rolling updates, probes and a hardened, read-only pod.</li><li>HPA scales 2–10 replicas; a PDB and zone spreading keep the API available.</li><li>kube-prometheus-stack with alerts for API down, p95 latency and error rate; CI validates Terraform and manifests.</li></ul>
         <div class="flow">VPC <b>·</b> EKS <b>·</b> ECR <b>·</b> S3 <b>·</b> HPA <b>·</b> PDB <b>·</b> Ingress</div>
         <div class="chips"><span class="chip">Terraform</span><span class="chip">AWS EKS</span><span class="chip">Kubernetes</span><span class="chip">Prometheus</span></div>
       </a>
@@ -276,6 +280,7 @@ footer.foot .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:
         <div class="top"><span class="area">Monitoring</span><span class="arrow">repo ↗</span></div>
         <h3>ml-cicd-drift-monitoring</h3>
         <p>Detects data drift and uses it to gate CI/CD: when drift is found it raises alerts and opens GitHub issues automatically.</p>
+        <ul class="details"><li>Per-feature PSI and two-sample KS test; a feature drifts only when both thresholds are crossed.</li><li>Generates JSON and colour-coded HTML reports, uploaded as CI artifacts.</li><li>Daily GitHub Actions check and a nightly Jenkins pipeline with a conditional Retrain stage.</li><li>Metrics pushed to Prometheus, with a provisioned Grafana dashboard and Alertmanager rules.</li></ul>
         <div class="flow">PSI + KS test <b>→</b> gate <b>→</b> alert <b>→</b> issue</div>
         <div class="chips"><span class="chip">Jenkins</span><span class="chip">GitHub Actions</span><span class="chip">Prometheus</span><span class="chip">Grafana</span></div>
       </a>
@@ -283,6 +288,7 @@ footer.foot .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:
         <div class="top"><span class="area">LLMs &amp; RAG</span><span class="arrow">repo ↗</span></div>
         <h3>rag-document-chatbot</h3>
         <p>Chat with your PDFs: semantic search plus LLM answers with citations, using OpenAI, Groq or a local Ollama model.</p>
+        <ul class="details"><li>Ingests PDF, Markdown and text, with overlapping chunks that respect sentence boundaries.</li><li>CPU-only embeddings stored in a persistent ChromaDB index.</li><li>Grounded prompts force cited answers like [1], [2], and an "I don't know" instead of guessing.</li><li>FastAPI backend with a built-in chat UI; Docker and offline tests in CI.</li></ul>
         <div class="flow">PDF <b>→</b> embeddings <b>→</b> ChromaDB <b>→</b> LLM <b>→</b> cited answer</div>
         <div class="chips"><span class="chip">ChromaDB</span><span class="chip">FastAPI</span><span class="chip">LLMs</span><span class="chip">Docker</span></div>
       </a>
@@ -290,6 +296,7 @@ footer.foot .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:
         <div class="top"><span class="area">Multimodal AI</span><span class="arrow">repo ↗</span></div>
         <h3>CineMind</h3>
         <p>Ask questions about any video. A multimodal Gemini agent summarises and answers in context.</p>
+        <ul class="details"><li>Upload .mp4, .mov or .avi files and ask questions in plain language.</li><li>Gemini analyses both the frames and the audio of the video.</li><li>The phidata agent can run a DuckDuckGo web search for extra context.</li><li>Interactive Streamlit UI with progress feedback while the video is processed.</li></ul>
         <div class="flow">video <b>→</b> Gemini agent <b>→</b> contextual summary</div>
         <div class="chips"><span class="chip">Gemini</span><span class="chip">phidata</span><span class="chip">Streamlit</span><span class="chip">Python</span></div>
       </a>
@@ -297,6 +304,7 @@ footer.foot .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:
         <div class="top"><span class="area">Full-stack · Final year project</span><span class="arrow">repo ↗</span></div>
         <h3>AtmoWork</h3>
         <p>An all-in-one team collaboration and project management platform with real-time updates.</p>
+        <ul class="details"><li>Kanban boards, goals with sub-tasks and collaborative mind maps in one workspace.</li><li>Real-time project chat with Socket.io and in-browser video meetings via Agora.</li><li>JWT auth with bcrypt, email invitations and activity notifications.</li><li>Stripe membership plans, multi-language UI and light/dark mode.</li></ul>
         <div class="flow">Next.js <b>↔</b> Node.js API <b>↔</b> MongoDB, live via Socket.io</div>
         <div class="chips"><span class="chip">Next.js</span><span class="chip">Node.js</span><span class="chip">MongoDB</span><span class="chip">Socket.io</span><span class="chip">TypeScript</span></div>
       </a>
